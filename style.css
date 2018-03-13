@@ -1,0 +1,114 @@
+@font-face {
+    font-family: celticmd;
+    src: url('font/celticmd.ttf');
+}
+
+body{
+	margin: 0 auto;
+}
+div {
+	/* Algemene styling voor divs */
+	padding: 8px;
+	margin-top: 5px;
+	border-radius: 5px;
+	font-size: 14pt;
+	font-family: Calibri, Verdana, Sans-serif;
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 0;
+	}
+
+h1 {
+	text-align: center;
+	line-height: 100px;
+	font-size: 24pt;
+	font-family: Celticmd, celticmd, Calibri, Sans-serif;
+	margin: 0;
+}
+
+img {
+	width: auto;	
+	}
+
+.centerbox{
+	text-align: center;	
+	}
+	
+.stats-title {
+	font-family: Celticmd, celticmd, Calibri, Sans-serif;
+	font-size: 16pt;
+	text-align: center;
+	}
+
+#story_container {
+	width: 46%;
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.message {
+	-webkit-animation:fadeIn 5s forwards; /* Safari 4+ */
+	-moz-animation:   fadeIn 5s forwards; /* Fx 5+ */
+	animation:        fadeIn 5s forwards; /* IE 10+, Fx 29+ */
+	}
+
+.story {
+	background-color: #EEEEEE;
+	}
+
+.player_action {
+	background-color: #DDDDDD;
+	}
+
+.dragon_action {
+	background-color: red;
+	color: white;
+	}	
+
+.gameover {
+	text-transform: uppercase;
+	font-family: Impact, Charcoal, sans-serif;
+	}
+
+.dragon{
+	background-image: url('img/dragon.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	display: inline-block;
+	float: left;
+	width: 25%;
+	height: 0;
+	padding-top: 25% /* img-height / img-width * width (1200/1200 * 25 */
+}
+
+.player{
+	background-image: url('img/player.jpg');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	display: inline-block;
+	float: right;
+	width: 25%;
+	height: 0;
+	padding-top: 25%;
+}
+
+@-webkit-keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
