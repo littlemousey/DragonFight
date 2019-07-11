@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Dragon fight game</title>
+  </head>
+  <body>
+    <h1>Dragon Fight!</h1>
+    <div class="centerbox">
+      <p>Choose your weapon</p>
+      <button type="button" onclick="action('sword')">sword</button>
+      <button type="button" onclick="action('staff')">staff</button>
+      <button type="button" onclick="action('bow')">bow</button>
+      <button type="button" onclick="potionAction()">potion</button>
+    </div>
+    <div class="dragon">
+      <div class="stats">
+        <p id="d_name" class="stats-title"></p>
+        <p id="d_health"></p>
+        <p id="d_strength"></p>
+        <p id="d_level"></p>
+      </div>
+    </div>
+    <div id="story_container"></div>
+    <div class="player">
+      <div class="stats">
+        <p id="p_name" class="stats-title"></p>
+        <p id="p_health"></p>
+        <p id="p_strength"></p>
+        <p id="p_level"></p>
+      </div>
+    </div>
+    <script src="Bosses.js"></script>
+    <script src="Dragonfight.js"></script>
+  </body>
+</html>
