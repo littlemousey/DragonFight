@@ -1,37 +1,135 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Dragon fight game</title>
-  </head>
-  <body>
-    <h1>Dragon Fight!</h1>
-    <div class="centerbox">
-      <p>Choose your weapon</p>
-      <button type="button" onclick="action('sword')">sword</button>
-      <button type="button" onclick="action('staff')">staff</button>
-      <button type="button" onclick="action('bow')">bow</button>
-      <button type="button" onclick="potionAction()">potion</button>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Into the Tulgey Wood</title>
+</head>
+<body>
+
+  <!-- Title Screen -->
+  <div id="screen-title" class="screen active">
+    <h1>Into the Tulgey Wood</h1>
+    <p class="tagline">
+      "Beware the Jabberwock, my son!<br>
+      The jaws that bite, the claws that catch!"
+    </p>
+    <button onclick="showScreen('screen-class')">Enter the Wood</button>
+  </div>
+
+  <!-- Class Selection Screen -->
+  <div id="screen-class" class="screen">
+    <h2>Who ventures forth?</h2>
+    <div class="class-cards">
+
+      <div class="class-card">
+        <h3>The Brave</h3>
+        <p class="class-flavour">A curious soul who stumbled through the looking-glass and refused to run.</p>
+        <table class="stat-table">
+          <tr><td>HP</td><td>15</td></tr>
+          <tr><td>STR</td><td>4</td></tr>
+          <tr><td>DEF</td><td>2</td></tr>
+          <tr><td>MAG</td><td>1</td></tr>
+        </table>
+        <p class="special-name">Special: Vorpal Strike</p>
+        <p class="special-desc">Snicker-snack! Double damage this turn, but you leave yourself open (+2 incoming next turn).</p>
+        <button onclick="selectClass('brave')">Choose</button>
+      </div>
+
+      <div class="class-card">
+        <h3>The Hatter</h3>
+        <p class="class-flavour">Mad, brilliant, and untethered from the rules of time or sense.</p>
+        <table class="stat-table">
+          <tr><td>HP</td><td>10</td></tr>
+          <tr><td>STR</td><td>1</td></tr>
+          <tr><td>DEF</td><td>1</td></tr>
+          <tr><td>MAG</td><td>5</td></tr>
+        </table>
+        <p class="special-name">Special: Riddlespell</p>
+        <p class="special-desc">A burst of nonsense-magic that ignores armour. 30% chance to confuse the foe and skip their turn.</p>
+        <button onclick="selectClass('hatter')">Choose</button>
+      </div>
+
+      <div class="class-card">
+        <h3>The Knight</h3>
+        <p class="class-flavour">Clumsy, honourable, and wearing more armour than is strictly necessary.</p>
+        <table class="stat-table">
+          <tr><td>HP</td><td>20</td></tr>
+          <tr><td>STR</td><td>3</td></tr>
+          <tr><td>DEF</td><td>5</td></tr>
+          <tr><td>MAG</td><td>1</td></tr>
+        </table>
+        <p class="special-name">Special: Shield Charge</p>
+        <p class="special-desc">Crash forward with your shield. Deal damage and negate the enemy's next attack entirely.</p>
+        <button onclick="selectClass('knight')">Choose</button>
+      </div>
+
     </div>
-    <div class="dragon">
-      <div class="stats">
-        <p id="d_name" class="stats-title"></p>
-        <p id="d_health"></p>
-        <p id="d_strength"></p>
-        <p id="d_level"></p>
+  </div>
+
+  <!-- Dungeon Screen -->
+  <div id="screen-dungeon" class="screen">
+    <div class="room-header">
+      <span id="room-counter" class="room-counter"></span>
+      <h2 id="room-name"></h2>
+    </div>
+    <p id="dungeon-event" class="dungeon-event"></p>
+    <div id="dungeon-choices" class="dungeon-choices">
+      <button onclick="chooseDirection('left')">&#8592; Left</button>
+      <button onclick="chooseDirection('right')">Right &#8594;</button>
+      <button id="btn-deeper" onclick="chooseDirection('deeper')" style="display:none">&#8595; Deeper</button>
+    </div>
+    <button id="btn-dungeon-continue" class="continue-btn" style="display:none"></button>
+    <div class="player-hud">
+      <span class="hud-item">HP: <strong id="hud-hp"></strong></span>
+      <span class="hud-item">Potions: <strong id="hud-potions"></strong></span>
+      <span class="hud-item">Scrolls: <strong id="hud-scrolls"></strong></span>
+    </div>
+  </div>
+
+  <!-- Combat Screen -->
+  <div id="screen-combat" class="screen">
+    <div class="combat-layout">
+      <div class="combatant enemy-side">
+        <div class="stats">
+          <p id="c-enemy-name" class="stats-title"></p>
+          <p id="c-enemy-hp"></p>
+          <p id="c-enemy-str"></p>
+          <p id="c-enemy-def"></p>
+          <p id="c-enemy-level"></p>
+        </div>
+      </div>
+      <div id="story_container"></div>
+      <div class="combatant player-side">
+        <div class="stats">
+          <p id="c-player-name" class="stats-title"></p>
+          <p id="c-player-hp"></p>
+          <p id="c-player-str"></p>
+          <p id="c-player-def"></p>
+          <p id="c-player-level"></p>
+        </div>
       </div>
     </div>
-    <div id="story_container"></div>
-    <div class="player">
-      <div class="stats">
-        <p id="p_name" class="stats-title"></p>
-        <p id="p_health"></p>
-        <p id="p_strength"></p>
-        <p id="p_level"></p>
-      </div>
+    <div class="combat-actions">
+      <button onclick="playerAction('attack')">Attack</button>
+      <button id="btn-special" onclick="playerAction('special')"></button>
+      <button id="btn-potion" onclick="playerAction('potion')"></button>
+      <div id="scroll-actions"></div>
     </div>
-    <script src="Bosses.js"></script>
-    <script src="Dragonfight.js"></script>
-  </body>
+    <button id="btn-combat-continue" class="continue-btn" onclick="afterCombatContinue()" style="display:none">
+      Continue deeper&hellip;
+    </button>
+  </div>
+
+  <!-- End Screen -->
+  <div id="screen-end" class="screen screen-end">
+    <h2 id="end-title"></h2>
+    <p id="end-message"></p>
+    <button onclick="restartGame()">Try Again</button>
+  </div>
+
+  <script src="classes.js"></script>
+  <script src="Bosses.js"></script>
+  <script src="Dragonfight.js"></script>
+</body>
 </html>
